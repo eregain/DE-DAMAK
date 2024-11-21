@@ -12,10 +12,10 @@ function Sales() {
   const authContext = useContext(AuthContext);
 
   useEffect(() => {
-    fetchSalesData();
     fetchProductsData();
+    fetchSalesData();
     fetchStoresData();
-  }, [updatePage]);
+  }, [fetchProductsData, fetchSalesData, fetchStoresData]);
 
   // Fetching Data of All Sales
   const fetchSalesData = () => {

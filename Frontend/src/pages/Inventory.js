@@ -11,11 +11,12 @@ function Inventory() {
   const [searchTerm, setSearchTerm] = useState();
   const [updatePage, setUpdatePage] = useState(true);
   const [stores, setAllStores] = useState([]);
+  const [sales, setAllSalesData] = useState([]);
 
   const authContext = useContext(AuthContext);
-  console.log('====================================');
+  console.log("====================================");
   console.log(authContext);
-  console.log('====================================');
+  console.log("====================================");
 
   useEffect(() => {
     fetchProductsData();
@@ -48,6 +49,7 @@ function Inventory() {
       .then((response) => response.json())
       .then((data) => {
         setAllStores(data);
+        setAllSalesData(data.map((store) => store.sales).flat());
       });
   };
 
@@ -62,7 +64,6 @@ function Inventory() {
     setUpdateProduct(selectedProductData);
     setShowUpdateModal(!showUpdateModal);
   };
-
 
   // Delete item
   const deleteItem = (id) => {
@@ -118,7 +119,7 @@ function Inventory() {
                 </div>
                 <div className="flex flex-col">
                   <span className="font-semibold text-gray-600 text-base">
-                    $2000
+                    {sales.element.TotalSaleAmount}
                   </span>
                   <span className="font-thin text-gray-400 text-xs">
                     Revenue

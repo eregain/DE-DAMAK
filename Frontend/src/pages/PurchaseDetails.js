@@ -11,9 +11,9 @@ function PurchaseDetails() {
   const authContext = useContext(AuthContext);
 
   useEffect(() => {
-    fetchPurchaseData();
     fetchProductsData();
-  }, [updatePage]);
+    fetchPurchaseData();
+  }, [fetchProductsData, fetchPurchaseData]);
 
   // Fetching Data of All Purchase items
   const fetchPurchaseData = () => {
@@ -40,7 +40,6 @@ function PurchaseDetails() {
     setPurchaseModal(!showPurchaseModal);
   };
 
-  
   // Handle Page Update
   const handlePageUpdate = () => {
     setUpdatePage(!updatePage);
@@ -54,7 +53,7 @@ function PurchaseDetails() {
             addSaleModalSetting={addSaleModalSetting}
             products={products}
             handlePageUpdate={handlePageUpdate}
-            authContext = {authContext}
+            authContext={authContext}
           />
         )}
         {/* Table  */}
@@ -102,7 +101,7 @@ function PurchaseDetails() {
                       {element.QuantityPurchased}
                     </td>
                     <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      {new Date(element.PurchaseDate).toLocaleDateString() ==
+                      {new Date(element.PurchaseDate).toLocaleDateString() ===
                       new Date().toLocaleDateString()
                         ? "Today"
                         : element.PurchaseDate}
