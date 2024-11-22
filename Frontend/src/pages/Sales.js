@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import AddSale from "../components/AddSale";
 import AuthContext from "../AuthContext";
 
@@ -11,40 +11,40 @@ function Sales() {
 
   const authContext = useContext(AuthContext);
 
-  useEffect(() => {
-    fetchProductsData();
-    fetchSalesData();
-    fetchStoresData();
-  }, [fetchProductsData, fetchSalesData, fetchStoresData]);
-
-  // Fetching Data of All Sales
-  const fetchSalesData = () => {
-    fetch(`http://localhost:4000/api/sales/get/${authContext.user}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setAllSalesData(data);
-      })
-      .catch((err) => console.log(err));
-  };
-
   // Fetching Data of All Products
-  const fetchProductsData = () => {
+  const fetchProductsData = useCallback(() => {
     fetch(`http://localhost:4000/api/product/get/${authContext.user}`)
       .then((response) => response.json())
       .then((data) => {
         setAllProducts(data);
       })
       .catch((err) => console.log(err));
-  };
+  }, [authContext.user]);
+
+  // Fetching Data of All Sales
+  const fetchSalesData = useCallback(() => {
+    fetch(`http://localhost:4000/api/sales/get/${authContext.user}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setAllSalesData(data);
+      })
+      .catch((err) => console.log(err));
+  }, [authContext.user]);
 
   // Fetching Data of All Stores
-  const fetchStoresData = () => {
+  const fetchStoresData = useCallback(() => {
     fetch(`http://localhost:4000/api/store/get/${authContext.user}`)
       .then((response) => response.json())
       .then((data) => {
         setAllStores(data);
       });
-  };
+  }, [authContext.user]);
+
+  useEffect(() => {
+    fetchProductsData();
+    fetchSalesData();
+    fetchStoresData();
+  }, [fetchProductsData, fetchSalesData, fetchStoresData]);
 
   // Modal for Sale Add
   const addSaleModalSetting = () => {

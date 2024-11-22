@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import AddPurchaseDetails from "../components/AddPurchaseDetails";
 import AuthContext from "../AuthContext";
 
@@ -10,30 +10,30 @@ function PurchaseDetails() {
 
   const authContext = useContext(AuthContext);
 
-  useEffect(() => {
-    fetchProductsData();
-    fetchPurchaseData();
-  }, [fetchProductsData, fetchPurchaseData]);
-
-  // Fetching Data of All Purchase items
-  const fetchPurchaseData = () => {
-    fetch(`http://localhost:4000/api/purchase/get/${authContext.user}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setAllPurchaseData(data);
-      })
-      .catch((err) => console.log(err));
-  };
-
   // Fetching Data of All Products
-  const fetchProductsData = () => {
+  const fetchProductsData = useCallback(() => {
     fetch(`http://localhost:4000/api/product/get/${authContext.user}`)
       .then((response) => response.json())
       .then((data) => {
         setAllProducts(data);
       })
       .catch((err) => console.log(err));
-  };
+  }, [authContext.user]);
+
+  // Fetching Data of All Purchase items
+  const fetchPurchaseData = useCallback(() => {
+    fetch(`http://localhost:4000/api/purchase/get/${authContext.user}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setAllPurchaseData(data);
+      })
+      .catch((err) => console.log(err));
+  }, [authContext.user]);
+
+  useEffect(() => {
+    fetchProductsData();
+    fetchPurchaseData();
+  }, [fetchPurchaseData, fetchProductsData]);
 
   // Modal for Sale Add
   const addSaleModalSetting = () => {

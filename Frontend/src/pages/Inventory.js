@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import AddProduct from "../components/AddProduct";
 import UpdateProduct from "../components/UpdateProduct";
 import AuthContext from "../AuthContext";
@@ -11,27 +11,34 @@ function Inventory() {
   const [searchTerm, setSearchTerm] = useState();
   const [updatePage, setUpdatePage] = useState(true);
   const [stores, setAllStores] = useState([]);
-  const [sales, setAllSalesData] = useState([]);
 
   const authContext = useContext(AuthContext);
   console.log("====================================");
   console.log(authContext);
   console.log("====================================");
 
-  useEffect(() => {
-    fetchProductsData();
-    fetchSalesData();
-  }, [updatePage]);
-
-  // Fetching Data of All Products
-  const fetchProductsData = () => {
+  const fetchProductsData = useCallback(() => {
     fetch(`http://localhost:4000/api/product/get/${authContext.user}`)
       .then((response) => response.json())
       .then((data) => {
         setAllProducts(data);
       })
       .catch((err) => console.log(err));
-  };
+  }, [authContext.user]);
+
+  // Fetching all stores data
+  const fetchSalesData = useCallback(() => {
+    fetch(`http://localhost:4000/api/store/get/${authContext.user}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setAllStores(data);
+      });
+  }, [authContext.user]);
+
+  useEffect(() => {
+    fetchProductsData();
+    fetchSalesData();
+  }, [fetchProductsData, fetchSalesData]);
 
   // Fetching Data of Search Products
   const fetchSearchData = () => {
@@ -41,16 +48,6 @@ function Inventory() {
         setAllProducts(data);
       })
       .catch((err) => console.log(err));
-  };
-
-  // Fetching all stores data
-  const fetchSalesData = () => {
-    fetch(`http://localhost:4000/api/store/get/${authContext.user}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setAllStores(data);
-        setAllSalesData(data.map((store) => store.sales).flat());
-      });
   };
 
   // Modal for Product ADD
@@ -119,7 +116,7 @@ function Inventory() {
                 </div>
                 <div className="flex flex-col">
                   <span className="font-semibold text-gray-600 text-base">
-                    {sales.element.TotalSaleAmount}
+                    $2000
                   </span>
                   <span className="font-thin text-gray-400 text-xs">
                     Revenue
