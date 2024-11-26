@@ -159,7 +159,7 @@ export default function AddStore() {
                               <option selected="" value="Electronics">
                                 CARS
                               </option>
-                              <option value="Groceries">CARS</option>
+                              <option value="Groceries">PARTS</option>
                               <option value="Wholesale">GENERATORS</option>
                               <option value="SuperMart">MOTORCYCLES</option>
                               <option value="Phones">GRINDING</option>
