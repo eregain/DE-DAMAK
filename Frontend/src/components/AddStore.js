@@ -157,12 +157,15 @@ export default function AddStore() {
                               }
                             >
                               <option selected="" value="Electronics">
-                                Electronics
+                                CARS
                               </option>
-                              <option value="Groceries">Groceries</option>
-                              <option value="Wholesale">WholeSale</option>
-                              <option value="SuperMart">SuperMart</option>
-                              <option value="Phones">Phones</option>
+                              <option value="Groceries">CARS</option>
+                              <option value="Wholesale">GENERATORS</option>
+                              <option value="SuperMart">MOTORCYCLES</option>
+                              <option value="Phones">GRINDING</option>
+                              <option value="waterpump">WATER PUMP</option>
+                              <option value="halengine">HAL ENGINE</option>
+                              <option value="others">OTHER</option>
                             </select>
                           </div>
                           <div className="sm:col-span-2">

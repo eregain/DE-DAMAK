@@ -12,7 +12,6 @@ function Login() {
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
 
-
   const handleInputChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -29,7 +28,7 @@ function Login() {
           });
         })
         .catch((err) => {
-          alert("Wrong credentials, Try again")
+          alert("Wrong credentials, Try again");
           console.log(err);
         });
     }, 3000);
@@ -57,12 +56,10 @@ function Login() {
     authCheck();
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
-  
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 h-screen  items-center place-items-center">
@@ -72,19 +69,17 @@ function Login() {
         <div className="w-full max-w-md space-y-8 p-10 rounded-lg">
           <div>
             <img
-              className="mx-auto h-12 w-auto"
+              className="mx-auto h-62 w-50"
               src={require("../assets/logo.png")}
-              alt="Your Company"
+              alt="DE-DAMAK"
             />
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
               Signin to your account
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
               Or
-              <span
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-              >
-                start your 14-day free trial
+              <span className="font-medium text-indigo-600 hover:text-indigo-500">
+                DE-DAMAK INVENTORY SYSTEM
               </span>
             </p>
           </div>
@@ -142,9 +137,7 @@ function Login() {
               </div>
 
               <div className="text-sm">
-                <span
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
-                >
+                <span className="font-medium text-indigo-600 hover:text-indigo-500">
                   Forgot your password?
                 </span>
               </div>
@@ -166,11 +159,9 @@ function Login() {
               </button>
               <p className="mt-2 text-center text-sm text-gray-600">
                 Or{" "}
-                <span
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
-                >
-                  Don't Have an Account, Please{" "}
-                  <Link to="/register"> Register now </Link>
+                <span className="font-medium text-indigo-600 hover:text-indigo-500">
+                  Don't Have an Account, AND YOU ARE AUTHORIZED BY DE-DAMAK
+                  Please <Link to="/register"> Register now </Link>
                 </span>
               </p>
             </div>
